@@ -6,12 +6,14 @@ import {
   ResponsiveContainer,
   Tooltip,
   XAxis,
+  TooltipProps,
 } from "recharts";
 import { DataItem } from "../../hook";
 
 interface Chart_props {
   setActiveTab: Dispatch<SetStateAction<string>>;
-  CustomTooltip: unknown;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  CustomTooltip: React.FC<TooltipProps<any, any>>;
   chartData: DataItem[];
   activeTab: string;
   totals: {
@@ -19,6 +21,7 @@ interface Chart_props {
     companies: number;
   };
 }
+
 export default function Chart({
   setActiveTab,
   CustomTooltip,
@@ -89,7 +92,7 @@ export default function Chart({
                 dy={8}
                 tick={{ fill: "#666", fontSize: 12 }}
               />
-              <Tooltip content={(props) => CustomTooltip(props as unknown)} />{" "}
+              <Tooltip content={<CustomTooltip />} />
               <Bar
                 dataKey={activeTab}
                 fill={activeTab === "people" ? "#3b82f6" : "#10b981"}

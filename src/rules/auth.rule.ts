@@ -3,7 +3,7 @@ import { z } from "zod";
 const handleEmailz = () => {
   return z
     .string()
-    .min(1, "Email is required") // Changed from .required() to .min(1)
+    .min(1, "Email is required")
     .email("Enter a valid email address.");
 };
 
@@ -22,11 +22,10 @@ export const registerSchema = z.object({
   password: handlePasswordz(),
   username: z.string().min(1, "Name is required"),
 });
-export type RegisterSchema = z.infer<typeof registerSchema>; // Changed from z.InferType
+export type RegisterSchema = z.infer<typeof registerSchema>;
 
 export const loginSchema = z.object({
-  // Changed to match error message - assuming this should be company code as a number
-  email: z.string().min(1, "Company Code is required"), // Changed from .required()
-  password: handlePasswordz(), // Changed from .required()
+  email: handleEmailz(),
+  password: handlePasswordz(),
 });
-export type LoginSchema = z.infer<typeof loginSchema>; // Changed from z.InferType
+export type LoginSchema = z.infer<typeof loginSchema>;

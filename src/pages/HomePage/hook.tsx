@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useExtendDateRangePicker } from "../../components/ExtendDateRangePicker/hook";
+import { TooltipProps } from "recharts";
 
 export interface DataItem {
   date: string;
@@ -65,24 +66,16 @@ const useHomePage = () => {
     active,
     payload,
     label,
-  }: {
-    active?: boolean;
-    payload?: Array<{
-      name: string;
-      value: number;
-      color: string;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      [key: string]: any;
-    }>;
-    label?: string;
-  }) => {
+  }: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TooltipProps<any, any>) => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-white p-2 border border-gray-200 shadow-sm rounded-md text-xs">
           <p className="font-semibold">{label}</p>
           {payload.map((entry, index) => (
-            <p key={index} style={{ color: entry.color }}>
-              {entry.name === "people" ? "People" : "Companies"}: {entry.value}
+            <p key={index} style={{ color: entry.color || entry.stroke }}>
+              {entry.dataKey === "people" ? "People" : "Companies"}:{" "}
+              {entry.value}
             </p>
           ))}
         </div>

@@ -14,12 +14,7 @@ import { setAccessTokenToLS, setProfileToLS } from "../../utils/auth";
 import { useBoolean } from "../../hooks/use-boolean";
 
 const useLoginPage = () => {
-  const {
-    control,
-    handleSubmit,
-    reset,
-    formState: { isValid, isDirty },
-  } = useForm<LoginSchema>({
+  const { control, handleSubmit, reset } = useForm<LoginSchema>({
     defaultValues: {
       password: "",
       email: "",
@@ -45,11 +40,6 @@ const useLoginPage = () => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       setError(null);
-
-      if (!isValid && !isDirty) {
-        setError("Email or password is invalid");
-        return;
-      }
 
       const loginResponse = await loginAccountMutation.mutateAsync(data);
 
