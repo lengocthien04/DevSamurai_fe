@@ -53,7 +53,13 @@ export default function SignupPage() {
               </p>
             </div>
             <div className="p-6 pt-0 flex flex-col gap-4">
-              <form className="flex flex-col gap-4" onSubmit={onSubmit}>
+              <form
+                className="flex flex-col gap-4"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  onSubmit(e);
+                }}
+              >
                 <Controller
                   control={control}
                   name="username"
@@ -63,6 +69,7 @@ export default function SignupPage() {
                         <TextFieldTopLabel
                           label="Name"
                           error={!!fieldState.error?.message}
+                          helperText={fieldState.error?.message}
                           type="text"
                           {...field}
                         />
@@ -79,6 +86,7 @@ export default function SignupPage() {
                         <TextFieldTopLabel
                           label="Email"
                           error={!!fieldState.error?.message}
+                          helperText={fieldState.error?.message}
                           type="text"
                           {...field}
                         />
@@ -95,7 +103,8 @@ export default function SignupPage() {
                         <TextFieldTopLabel
                           label="Password"
                           error={!!fieldState.error?.message}
-                          type={showPassword ? "text" : "password"} // Đổi type dựa trên trạng thái
+                          type={showPassword ? "text" : "password"}
+                          helperText={fieldState.error?.message}
                           InputProps={{
                             endAdornment: (
                               <InputAdornment position="end">

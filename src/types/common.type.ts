@@ -1,5 +1,6 @@
 import { HTMLInputTypeAttribute, ReactNode } from "react";
 import { InputFieldName } from "./input.type";
+import { Dayjs } from "dayjs";
 
 export interface SQLModel {
   id: string;
@@ -29,3 +30,5 @@ export interface InputField {
   errorMsg?: string;
   readonly?: boolean;
 }
+
+export type IDatePickerControl = Dayjs | null;

@@ -11,11 +11,7 @@ import { useNavigate } from "react-router-dom";
 const useSignupPage = () => {
   const { value: showPassword, onToggle } = useBoolean();
 
-  const {
-    control,
-    handleSubmit,
-    formState: { isValid, isDirty },
-  } = useForm<RegisterSchema>({
+  const { control, handleSubmit } = useForm<RegisterSchema>({
     defaultValues: {
       password: "",
       email: "",
@@ -33,9 +29,6 @@ const useSignupPage = () => {
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit((data) => {
-    if (!isValid && !isDirty) {
-      return;
-    }
     registerAccountMutation.mutate(data, {
       onSuccess: () => {
         navigate(`/${mainPath.login.replace(/^\//, "")}`);

@@ -9,6 +9,7 @@ import mainPath from "../../configs/constants/path";
 
 export default function LoginPage() {
   const { control, error, onSubmit, showPassword, onToggle } = useLoginPage();
+
   return (
     <div className="py-8">
       <div className="flex flex-col items-center justify-center p-2">
@@ -52,19 +53,23 @@ export default function LoginPage() {
             <div className="p-6 pt-0 flex flex-col gap-4">
               <form
                 className="flex flex-col gap-4"
-                onSubmit={onSubmit}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  onSubmit(e);
+                }}
                 method="post"
               >
                 <Controller
                   control={control}
                   name="email"
-                  render={({ fieldState, field }) => {
+                  render={({ field, fieldState }) => {
                     return (
                       <Box component="div" className="flex flex-col ">
                         <TextFieldTopLabel
                           label="Email"
-                          error={!!fieldState.error?.message}
                           type="text"
+                          error={!!fieldState.error}
+                          helperText={fieldState.error?.message}
                           InputProps={{
                             startAdornment: (
                               <svg
@@ -74,9 +79,9 @@ export default function LoginPage() {
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                                 className="lucide lucide-mail size-4 shrink-0 text-muted-foreground"
                               >
                                 <rect
@@ -99,13 +104,14 @@ export default function LoginPage() {
                 <Controller
                   control={control}
                   name="password"
-                  render={({ fieldState, field }) => {
+                  render={({ field, fieldState }) => {
                     return (
                       <Box component="div" className="flex flex-col">
                         <TextFieldTopLabel
                           label="Password"
-                          error={!!fieldState.error?.message}
-                          type={showPassword ? "text" : "password"} // Đổi type dựa trên trạng thái
+                          type={showPassword ? "text" : "password"}
+                          error={!!fieldState.error}
+                          helperText={fieldState.error?.message}
                           InputProps={{
                             startAdornment: (
                               <svg
@@ -115,9 +121,9 @@ export default function LoginPage() {
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                                 className="lucide lucide-lock size-4 shrink-0 text-muted-foreground"
                               >
                                 <rect
@@ -142,9 +148,9 @@ export default function LoginPage() {
                                       viewBox="0 0 24 24"
                                       fill="none"
                                       stroke="currentColor"
-                                      stroke-width="2"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
+                                      strokeWidth="2"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
                                       className="lucide lucide-eye size-4 shrink-0"
                                     >
                                       <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path>
@@ -158,9 +164,9 @@ export default function LoginPage() {
                                       viewBox="0 0 24 24"
                                       fill="none"
                                       stroke="currentColor"
-                                      stroke-width="2"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
+                                      strokeWidth="2"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
                                       className="lucide lucide-eye-off size-4 shrink-0"
                                     >
                                       <path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"></path>
@@ -180,6 +186,34 @@ export default function LoginPage() {
                     );
                   }}
                 />
+                {error && (
+                  <div
+                    role="alert"
+                    className="relative w-full rounded-lg border p-4 text-foreground bg-error-bg"
+                  >
+                    <div className="flex flex-row items-center gap-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-circle-alert size-[18px] shrink-0"
+                      >
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" x2="12" y1="8" y2="12"></line>
+                        <line x1="12" x2="12.01" y1="16" y2="16"></line>
+                      </svg>
+                      <div className="text-sm [&amp;_p]:leading-relaxed">
+                        {error}
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 <button
                   className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 w-full"
@@ -245,7 +279,7 @@ export default function LoginPage() {
               <span>Don't have an account?</span>
               <NavLink
                 className="text-foreground underline"
-                to={`/${mainPath.signup}`} // or to="/auth/signup" directly
+                to={`/${mainPath.signup}`}
               >
                 Sign up
               </NavLink>

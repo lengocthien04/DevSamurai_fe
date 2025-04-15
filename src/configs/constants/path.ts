@@ -1,6 +1,6 @@
 // Define the main paths
 const mainPath = {
-  home: "/dashboard/home",
+  home: "",
   login: "auth/login",
   signup: "auth/signup",
 };

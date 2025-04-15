@@ -30,49 +30,47 @@ const useLoginPage = () => {
 
   const [error, setError] = useState<string | null>(null);
 
-  const { setIsAuthenticated, setLoadingPage, setProfile } =
-    useContext(AppContext);
+  const { setIsAuthenticated, setProfile } = useContext(AppContext);
 
   const navigate = useNavigate();
 
-  // ! Handle login
   const loginAccountMutation = useMutation({
     mutationFn: (body: UserLoginDto) => authApi.loginAccount(body),
   });
+
   const getProfileMutation = useMutation({
     mutationFn: authApi.getProfile,
   });
-  const onSubmit = handleSubmit((data) => {
-    if (!isValid && !isDirty) {
-      setError("email or password is invalid");
-      return;
-    }
-    setLoadingPage(true);
-    loginAccountMutation.mutate(data, {
-      onSettled() {
-        setLoadingPage(false);
-      },
-      onSuccess: (response) => {
-        setAccessTokenToLS(response.data.token);
-        setIsAuthenticated(true);
-        getProfileMutation.mutateAsync().then((response) => {
-          setProfileToLS(response.data.data);
-          setProfile(response.data.data);
-        });
 
-        navigate(mainPath.home);
-      },
-      onError: (error) => {
-        if (isAxiosBadRequestError<ErrorRespone>(error)) {
-          const formError = error.response?.data;
-          if (formError) {
-            setError("Email or password is invalid");
-          }
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      setError(null);
+
+      if (!isValid && !isDirty) {
+        setError("Email or password is invalid");
+        return;
+      }
+
+      const loginResponse = await loginAccountMutation.mutateAsync(data);
+
+      setAccessTokenToLS(loginResponse.data.token);
+      setIsAuthenticated(true);
+
+      const profileResponse = await getProfileMutation.mutateAsync();
+      setProfileToLS(profileResponse.data.data);
+      setProfile(profileResponse.data.data);
+
+      navigate(mainPath.home);
+    } catch (error) {
+      if (isAxiosBadRequestError<ErrorRespone>(error)) {
+        const formError = error.response?.data;
+        if (formError) {
+          setError("Email or password is not correct");
         }
-      },
-    });
-
-    setLoadingPage(false);
+      } else {
+        setError("An error occurred. Please try again.");
+      }
+    }
   });
 
   const { value: showPassword, onToggle } = useBoolean();
