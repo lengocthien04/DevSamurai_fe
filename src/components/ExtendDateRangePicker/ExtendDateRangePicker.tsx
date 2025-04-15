@@ -52,7 +52,7 @@ export default function DateRangePicker({
           variant="outlined"
           onClick={() => setDatePickerOpen(true)}
           className={classNames(
-            " !bg-white rounded-lg border !border-[#d5d6d9] justify-center items-center gap-1 flex",
+            " !bg-white rounded-lg border !border-[#d5d6d9] justify-center items-center gap-1 !flex !normal-case",
             className
           )}
           {...buttonProps}

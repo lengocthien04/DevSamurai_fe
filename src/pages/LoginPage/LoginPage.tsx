@@ -1,19 +1,30 @@
 import { Controller } from "react-hook-form";
 import Box from "@mui/material/Box";
-import { IconButton, InputAdornment } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  IconButton,
+  InputAdornment,
+} from "@mui/material";
 
 import TextFieldTopLabel from "../../components/TextFieldTopLabel";
 import useLoginPage from "./hook";
 import { NavLink } from "react-router-dom";
 import mainPath from "../../configs/constants/path";
 
+const progressStyles = {
+  contained: {
+    color: "white", // Set the color to white
+  },
+};
 export default function LoginPage() {
-  const { control, error, onSubmit, showPassword, onToggle } = useLoginPage();
+  const { control, error, onSubmit, showPassword, onToggle, loadingPage } =
+    useLoginPage();
 
   return (
     <div className="py-8">
       <div className="flex flex-col items-center justify-center p-2">
-        <div className="mx-auto w-full min-w-[360px] space-y-6 max-w-md">
+        <div className="mx-auto w-full min-w-[360px] space-y-6 max-w-md justify-center flex flex-col">
           <a href="/">
             <div className="flex items-center space-x-2 justify-center">
               <div className="flex size-9 items-center justify-center p-1">
@@ -41,7 +52,7 @@ export default function LoginPage() {
               <span className="font-bold">Acme</span>
             </div>
           </a>
-          <div className="rounded-xl border bg-card text-card-foreground shadow text-left">
+          <div className="rounded-xl border bg-card text-card-foreground shadow text-left max-w-[382px] self-center">
             <div className="flex flex-col space-y-1.5 p-6">
               <h3 className="text-xl font-semibold leading-none tracking-tight">
                 Log in
@@ -215,20 +226,26 @@ export default function LoginPage() {
                   </div>
                 )}
 
-                <button
-                  className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 w-full"
+                <Button
+                  className="inline-flex !normal-case items-center justify-center rounded-md text-sm font-medium transition-colors disabled:opacity-50 !bg-primary !text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 w-full"
                   type="submit"
+                  disabled={loadingPage}
                 >
+                  {loadingPage && (
+                    <CircularProgress size={14} sx={progressStyles.contained} />
+                  )}
                   Log in
-                </button>
+                </Button>
               </form>
               <p className="flex items-center gap-x-3 text-sm text-muted-foreground before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border">
                 Or continue with
               </p>
               <div className="flex flex-row gap-4">
-                <button
-                  className="justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 flex w-full flex-row items-center gap-2"
+                <Button
+                  className="justify-center shadow rounded-md !text-foreground !normal-case text-sm font-medium !border-border-primary h-9 px-4 py-2 flex w-full flex-row items-center gap-2"
                   type="button"
+                  disabled={loadingPage}
+                  variant="outlined"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -255,10 +272,12 @@ export default function LoginPage() {
                     <path fill="none" d="M1 1h22v22H1z"></path>
                   </svg>
                   Google
-                </button>
-                <button
-                  className="justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 flex w-full flex-row items-center gap-2"
+                </Button>
+                <Button
+                  className="justify-center rounded-md !text-foreground shadow !normal-case text-sm font-medium !border-border-primary h-9 px-4 py-2 flex w-full flex-row items-center gap-2"
                   type="button"
+                  disabled={loadingPage}
+                  variant="outlined"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -272,7 +291,7 @@ export default function LoginPage() {
                     <path fill="#ffb900" d="M11 11h9v9h-9z"></path>
                   </svg>
                   Microsoft
-                </button>
+                </Button>
               </div>
             </div>
             <div className="items-center p-6 pt-0 flex justify-center gap-1 text-sm text-muted-foreground">

@@ -25,7 +25,8 @@ const useLoginPage = () => {
 
   const [error, setError] = useState<string | null>(null);
 
-  const { setIsAuthenticated, setProfile } = useContext(AppContext);
+  const { setIsAuthenticated, setProfile, loadingPage, setLoadingPage } =
+    useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -40,6 +41,7 @@ const useLoginPage = () => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       setError(null);
+      setLoadingPage(true);
 
       const loginResponse = await loginAccountMutation.mutateAsync(data);
 
@@ -56,10 +58,14 @@ const useLoginPage = () => {
         const formError = error.response?.data;
         if (formError) {
           setError("Email or password is not correct");
+          setLoadingPage(false);
         }
       } else {
-        setError("An error occurred. Please try again.");
+        setError("Email or password is not correct");
+        setLoadingPage(false);
       }
+    } finally {
+      setLoadingPage(false);
     }
   });
 
@@ -72,6 +78,7 @@ const useLoginPage = () => {
     reset,
     showPassword,
     onToggle,
+    loadingPage,
   };
 };
 

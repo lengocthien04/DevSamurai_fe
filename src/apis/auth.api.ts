@@ -8,7 +8,7 @@ const authApi = {
   registerAccount(body: { email: string; password: string; username: string }) {
     return http.post<AuthResponse>("/register", body);
   },
-  loginAccount(body: { email: string; password: string }) {
+  loginAccount(body: { email: string | null; password: string | null }) {
     return http.post<AuthResponse>("/login", body);
   },
   logout() {

@@ -3,6 +3,7 @@ import useSidebarStore from "../../store/useSideBarStore";
 import classNames from "classnames";
 import { useContext } from "react";
 import { AppContext } from "../../contexts/app.context";
+import { Dropdown } from "./children/Dropdown";
 
 const buttonStyles = {
   textTransform: "none",
@@ -16,8 +17,27 @@ const buttonStyles = {
 
 export default function SideBar() {
   const { toggle, isOpen } = useSidebarStore();
+  const favoriteContacts = [
+    {
+      id: "5ff2aa98-9370-462f-bb28-62d8ffc80af1",
+      name: "Airbnb",
+      imageSrc:
+        "https://demo.achromatic.dev/api/contact-images/5ff2aa98-9370-462f-bb28-62d8ffc80af1?v=51bbe674c4608776218704a0bdc00a18082affe42b946db6d3c80cb579f1829e",
+    },
+    {
+      id: "4c86a6cd-0325-4bcf-ab1f-40b6f22e6beb",
+      name: "Google",
+      imageSrc:
+        "https://demo.achromatic.dev/api/contact-images/4c86a6cd-0325-4bcf-ab1f-40b6f22e6beb?v=c6baedbc608cec1692c40b3b15c5f3bb557a51fcbe0bc07140807fac7d03075a",
+    },
+    {
+      id: "a00a72e8-7df7-4a00-940a-a1439093030e",
+      name: "Microsoft",
+      imageSrc:
+        "https://demo.achromatic.dev/api/contact-images/a00a72e8-7df7-4a00-940a-a1439093030e?v=a1fab8fc3cf9fb9554b6d0fcab8236be7a22ceadec82ce0704cf79d3973c1139",
+    },
+  ];
 
-  // Main navigation items data
   const navigationItems = [
     {
       name: "Home",
@@ -286,7 +306,37 @@ export default function SideBar() {
         </ul>
       </div>
 
-      <div className="relative flex w-full min-w-0 flex-col p-3 "></div>
+      <Dropdown title="Favorites">
+        <ul data-sidebar="menu" className="flex w-full min-w-0 flex-col gap-1">
+          {favoriteContacts.map((contact) => (
+            <li
+              key={contact.id}
+              data-sidebar="menu-item"
+              className="group/menu-item relative"
+              tabIndex={0}
+              aria-disabled="false"
+              aria-roledescription="sortable"
+            >
+              <a
+                href={`/dashboard/contacts/${contact.id}`}
+                className="peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2.5 text-left outline-none ring-sidebar-ring transition-[width,height,padding] focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:!size-9 group-data-[collapsible=icon]:!p-2.5 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground h-9 text-sm group/fav-item relative"
+                data-state="closed"
+              >
+                <span className="relative flex overflow-hidden size-4 flex-none shrink-0 rounded-md">
+                  <img
+                    className="aspect-square size-full"
+                    alt="avatar"
+                    src={contact.imageSrc}
+                  />
+                </span>
+                <span className="backface-hidden ml-0.5 truncate text-sm font-normal will-change-transform">
+                  {contact.name}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </Dropdown>
 
       <div
         data-sidebar="group"

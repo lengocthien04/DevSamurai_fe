@@ -25,7 +25,7 @@ export const registerSchema = z.object({
 export type RegisterSchema = z.infer<typeof registerSchema>;
 
 export const loginSchema = z.object({
-  email: handleEmailz(),
-  password: handlePasswordz(),
+  email: z.string().nullable(),
+  password: z.string().nullable(),
 });
 export type LoginSchema = z.infer<typeof loginSchema>;

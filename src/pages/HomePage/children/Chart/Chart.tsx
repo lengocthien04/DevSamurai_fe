@@ -34,10 +34,10 @@ export default function Chart({
       {/* Header section */}
       <div className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-          <h3 className="font-semibold tracking-tight text-base">
+          <h3 className="font-semibold tracking-tight text-base text-left">
             Lead generation
           </h3>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground text-left">
             New contacts added to the pool.
           </p>
         </div>

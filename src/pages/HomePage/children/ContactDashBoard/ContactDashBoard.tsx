@@ -149,14 +149,7 @@ const ContactList: React.FC<ContactListProps> = ({ title, contacts }) => {
       }}
     >
       <Box sx={{ padding: "24px", paddingBottom: "8px" }}>
-        <p
-          style={{
-            margin: 0,
-            fontSize: "16px",
-            fontWeight: 600,
-            color: "rgba(0, 0, 0, 0.87)",
-          }}
-        >
+        <p className="m-0 text-base font-medium !text-foreground text-left">
           {title}
         </p>
       </Box>
