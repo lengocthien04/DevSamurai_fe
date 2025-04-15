@@ -1,0 +1,77 @@
+@use '/src/styles/variables' as v;
+
+.wrapper {
+  position: relative;
+  margin: 0.8rem 0;
+  width: 100%;
+}
+
+.input_section {
+  min-height: 2.8rem;
+  width: 100%;
+  border: 1px solid v.$gray-border-color;
+  border-radius: 0.6rem;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 0.8rem 0.8rem;
+  background-color: white;
+}
+
+.label {
+  margin-right: 1.2rem;
+
+  svg {
+    height: 2.4rem;
+    width: 2.4rem;
+  }
+}
+
+.password__btn {
+  position: absolute;
+  right: 3.2rem;
+  top: 50%;
+  transform: translateY(-40%);
+  svg {
+    height: 1.6rem;
+    width: 1.6rem;
+    fill: v.$primary-blue-color;
+  }
+}
+
+// ! Input
+.input__regular {
+  height: 100%;
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: white !important;
+  font-size: 1.6rem;
+
+  &::placeholder {
+    color: #c0c0c0;
+  }
+
+  &::-ms-input-placeholder {
+    /* Edge 12 -18 */
+    color: #c0c0c0;
+  }
+
+  &.autofill {
+    color: v.$text-color;
+    font-size: 2rem;
+    background-color: white;
+  }
+
+  &:disabled {
+    color: v.$gray-text;
+  }
+}
+
+.error {
+  margin-top: 0.4rem;
+  min-height: 2rem;
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: v.$alert-red;
+}

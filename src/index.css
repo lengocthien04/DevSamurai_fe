@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* !Variables */
+:root {
+  --background-color: #ffffff;
+}
+
+body {
+  background-color: var(--background-color);
+  font-family: "Inter", "Inter Fallback";
+  font-weight: 400;
+}
