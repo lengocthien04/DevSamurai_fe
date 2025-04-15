@@ -149,9 +149,9 @@ export default function SignupPage() {
                                 height="5"
                                 fill="currentColor"
                                 stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
                                 viewBox="0 0 24 24"
                                 className="mr-2 inline-block"
                               >
@@ -181,9 +181,9 @@ export default function SignupPage() {
                                 height="5"
                                 fill="currentColor"
                                 stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
                                 viewBox="0 0 24 24"
                                 className="mr-2 inline-block"
                               >
@@ -212,9 +212,9 @@ export default function SignupPage() {
                                 height="5"
                                 fill="currentColor"
                                 stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
                                 viewBox="0 0 24 24"
                                 className="mr-2 inline-block"
                               >
@@ -290,17 +290,20 @@ export default function SignupPage() {
             </div>
             <div className="items-center p-6 inline-block rounded-b-xl border-t bg-muted pt-6 text-xs text-muted-foreground">
               By signing up, you agree to our{" "}
-              <a className="text-foreground underline" href="/terms-of-use">
+              <NavLink className="text-foreground underline" to="/terms-of-use">
                 Terms of Use
-              </a>{" "}
+              </NavLink>{" "}
               and{" "}
-              <a className="text-foreground underline" href="/privacy-policy">
+              <NavLink
+                className="text-foreground underline"
+                to="/privacy-policy"
+              >
                 Privacy Policy
-              </a>
+              </NavLink>
               . Need help?{" "}
-              <a className="text-foreground underline" href="/contact">
+              <NavLink className="text-foreground underline" to="/contact">
                 Get in touch
-              </a>
+              </NavLink>
               .
             </div>
           </div>
